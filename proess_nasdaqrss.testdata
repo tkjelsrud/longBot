@@ -1,0 +1,75 @@
+<rss xmlns:nasdaq="http://nasdaq.com" version="2.0">
+<channel>
+<title>NASDAQ.com Stock Tracker</title>
+<link>http://www.nasdaq.com</link>
+<description>
+Track your favorite stock and link to NASDAQ.com for the full details.
+</description>
+<copyright>
+Copyright 2005 - 2016 Nasdaq.com. All rights reserved.
+</copyright>
+<item>
+<pubDate>24 Nov 2017 13:00:00 EST</pubDate>
+<title>
+24 Nov 2017 13:00:00 EST - The latest stock information is now available for your stocks
+</title>
+<author>isfeedback@nasdaq.com</author>
+<description>
+<![CDATA[
+<table border=0 cellspacing=0 cellpadding=0 width="200">
+ <TR bgcolor="#DDDDDD">
+ <TD ALIGN="LEFT" COLSPAN=2 nowrap><a href="http://www.nasdaq.com/symbol/qqqc">QQQC</a> &nbsp;
+ </TD>
+ </TR>
+ <TR bgcolor="#EEEEEE">
+ <TD nowrap width="50%">&nbsp;Last
+ </TD>
+ <TD nowrap align=right width="50%">32.178
+ </TD>
+ </TR>
+ <TR bgcolor="#DDDDDD">
+ <TD nowrap width="50%">&nbsp;Change
+ </TD>
+ <TD nowrap align=right width="50%"><font color="red">-<img src=http://www.nasdaq.com/images/redarrowsmall.gif >0.4994</font>&nbsp;
+ </TD>
+ </TR>
+ <TR bgcolor="#EEEEEE">
+ <TD nowrap width="50%">&nbsp;% Change
+ </TD>
+ <TD nowrap align=right width="50%"><font color="red">1.53%</font>&nbsp;
+ </TD>
+ </TR>
+ <TR bgcolor="#DDDDDD">
+ <TD nowrap width="50%">&nbsp;Volume
+ </TD>
+ <TD nowrap align=right width="50%">20,637&nbsp;
+ </TD>
+ </TR>
+ </TABLE>
+
+ <TABLE WIDTH=180>
+ <TR bgcolor="#EEEEEE">
+ <TD nowrap>&nbsp;As of: 24 Nov 2017 13:00:00 EST&nbsp;
+ </TD>
+ </TR>
+
+ <TR bgcolor="#DDDDDD">
+ <TD COLSPAN=2 nowrap>&nbsp;View: <a title="QQQC Stock Quote" href="http://www.nasdaq.com/symbol/qqqc">Stock Quote</a> | &nbsp;<a title="QQQC News" href="http://www.nasdaq.com/aspxcontent/newsheadlines.aspx?symbol=QQQC&selected=QQQC">News</a><BR>
+ </TD>
+ </TR>
+ <TR>
+ <TD COLSPAN=2 nowrap>&nbsp;
+ </TD>
+ </TR>
+ </TABLE>
+]]>
+</description>
+<link>
+http://www.nasdaq.com/quotedll/quote.dll?rss=stockquotes&mode=stock&page=multi&symbol=QQQC
+</link>
+<guid>
+http://www.nasdaq.com/quotedll/quote.dll?rss=stockquotes&mode=stock&page=multi&symbol=QQQC
+</guid>
+</item>
+</channel>
+</rss>
