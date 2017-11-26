@@ -1,30 +1,45 @@
-import mysql.connector
-from mysql.connector import Error
-import urllib3
+#import mysql.connector
 
+#from mysql.connector import Error
+import urllib3
+#from process_nasdaqrss import Processor
+from sql import SQL
+
+urllib3.disable_warnings()
 
 class LongBot:
     CfgFile = "longbot.cfg"
 
-    def fetch(self, freq):
+    @classmethod
+    def fetch(freq):
+        data = {}
         if freq in ("hourly", "daily"):
             # Do daily stuff
             try:
-                self.sqlConnect()
-                rows = self.sqlFetchFromSource(freq)
+                s = SQL()
+                s.connect()
+                rows = SQL.fetchFromSource(freq)
                 http = urllib3.PoolManager()
 
                 for r in rows:
-                    urllib3.disable_warnings()
-                    #print(r[0])
-                    r = http.request('GET', r[1])
-                    #print(len(r._body))
+                    try:
+                        res = http.request('GET', r['url'])
+                        print("B" + str(res._body))
+                        if res.status == 200:
+                            exec('from process_' + r['handler'] + ' import Processor')
+                            pres = exec('Processor.process(str(res._body))')
+                            if pres['valid']:
+                                data[pres['ticker']] = pres['last']
+                        else:
+                            print("Could not download from " + r['url'])
+                            print(str(res._body))
+                    except Exception as e:
+                        print(r['name'] + str(e))
                 http.clear()
-
-            except Error as e:
-                print(e)
+            except Exception as e:
+                print(str(e))
             finally:
-                self.sqlClose()
+                s.close()
         else:
             return False
         return True
@@ -36,31 +51,16 @@ class LongBot:
                 self.props[ar[0].strip()] = ar[1].strip()
 
     def get(self, key):
-        return self.props[key]
+        if key in self.props:
+            return self.props[key]
+        return None
 
-    def sqlFetchFromSource(self, freq):
-        rows = None
-        try:
-            cursor = self.sql.cursor()
-            cursor.execute("SELECT * FROM source WHERE frequency = '%s'" % (freq))
-            rows = cursor.fetchall()
-        except Error as e:
-            print(e)
-        finally:
-            cursor.close()
-
-        return rows
-
-    def sqlConnect(self):
-        self.sql = mysql.connector.connect(user=self.get('db.user'), password=self.get('db.pass'),
-                              host=self.get('db.host'),database=self.get('db.db'))
-
-    def sqlClose(self):
-        if self.sql:
-            self.sql.close()
+    def set(self, key, val):
+        self.props[key] = val
 
     def __init__(self):
         # Read config
+        #print(os.path.dirname(os.path.realpath(__file__)))
         self.props = {}
         self.readCfg()
-        self.sql = None
+        self.sql = SQL()

@@ -10,27 +10,40 @@ class TestLongBot(unittest.TestCase):
     def test_sql(self):
         from longbot import LongBot
         lb = LongBot()
-        lb.sqlConnect()
+        #lb.sqlConnect()
 
         self.assertTrue(len(lb.props.keys()) > 0)
 
     def test_sqlFetch(self):
         from longbot import LongBot
         lb = LongBot()
-        lb.sqlConnect()
-        lb.fetch("daily")
-        self.assertTrue(len(lb.props.keys()) > 0)
+        #Creates too many requests
+
+        #lb.sqlConnect()
+        #lb.fetch("daily")
+        #self.assertTrue(len(lb.props.keys()) > 0)
 
     def test_processNasdaqRss(self):
         import process_nasdaqrss
         data = ""
-        fp = open("proess_nasdaqrss.testdata",'r')
+        fp = open("process_nasdaqrss.testdata",'r')
         data = fp.read()
         fp.close()
         self.assertTrue(len(data) > 100)
-        res = process_nasdaqrss.process(data)
-        self.assertTrue(res['ticker'] == "qqqc")
-        self.assertTrue(res['last'] == "32.178")
+        res = process_nasdaqrss.Processor.process(data)
+        self.assertEqual(res['ticker'], "qqqc")
+        self.assertEqual(res['last'], "32.178")
+
+    def test_processNorgesBankEUR(self):
+        import process_nbvalu
+        data = ""
+        fp = open("process_nbvalu.testdata",'r')
+        data = fp.read()
+        fp.close()
+        self.assertTrue(len(data) > 100)
+        res = process_nbvalu.Processor.process(data)
+        self.assertEqual(res['ticker'], "EUR")
+        self.assertEqual(res['last'], "9.6608")
 
 if __name__=='__main__':
     try:

@@ -1,18 +1,17 @@
 #!/usr/bin/python
 import re
-from longbot import LongBot
 
 class Processor:
     def process(data):
-        res = {'valid': False}
+        res = {}
 
-        m = re.search("symbol/([a-z]+)", data)
+        m = re.search("exchange_rates/currency/([A-Za-z]+)", data)
         if m:
             res['ticker'] = m.group(1)
         else:
             res['ticker'] = None
 
-        m = re.search("([0-9]+\\.[0-9]+)\n", data)
+        m = re.search("1 [A-Z]+ = ([0-9]+\\.[0-9]+) NOK", data)
         if m:
             res['last'] = m.group(1)
         else:
@@ -22,7 +21,3 @@ class Processor:
             res['valid'] = True
 
         return res
-
-    def calculate(bot):
-        #
-        None
