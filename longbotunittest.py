@@ -4,24 +4,29 @@ class TestLongBot(unittest.TestCase):
 
     def test_create(self):
         from longbot import LongBot
-        lb = LongBot()
+        lb = LongBot("Test", '{"depo": [{"ticker": "QQQC", "count": 100, "at": "USD32.63", "cost": "NOK26875.24"}]}')
         self.assertTrue(len(lb.props.keys()) > 0)
 
     def test_sql(self):
         from longbot import LongBot
-        lb = LongBot()
+        lb = LongBot("Test", "{}")
         #lb.sqlConnect()
 
         self.assertTrue(len(lb.props.keys()) > 0)
 
     def test_sqlFetch(self):
         from longbot import LongBot
-        lb = LongBot()
+        lb = LongBot("Test", "{}")
         #Creates too many requests
 
         #lb.sqlConnect()
         #lb.fetch("daily")
         #self.assertTrue(len(lb.props.keys()) > 0)
+
+    def test_sqlGetBots(self):
+        from longbot import LongBot
+        list = LongBot.loadBots("0")
+        self.assertTrue(len(list) > 0)
 
     def test_processNasdaqRss(self):
         import process_nasdaqrss

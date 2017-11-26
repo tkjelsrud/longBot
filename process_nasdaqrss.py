@@ -24,5 +24,7 @@ class Processor:
         return res
 
     def calculate(bot):
-        #
-        None
+        for pos in bot['depo']:
+            # Calculate value of position vs original cost
+            print(pos['ticker'] + " " + str(pos['count']))
+        return None

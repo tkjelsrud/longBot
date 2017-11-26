@@ -28,8 +28,18 @@ class SQL:
     def insertData(self, name, data):
         self.sql.execute("INSERT INTO data (name, data) VALUES('%s', '%s'" % (name, data))
 
-    def fetchBots(self):
-        None
+    def fetchBots(self, hash):
+        rows = None
+        try:
+            cursor = self.con.cursor()
+            cursor.execute("SELECT name, data, updated FROM bot WHERE hash = '%s'" % (hash))
+            rows = cursor.fetchall()
+        except MySQLdb.Error as e:
+            print(e)
+        finally:
+            cursor.close()
+
+        return rows
 
     def readCfg(self):
         with open(SQL.CfgFile) as fp:
