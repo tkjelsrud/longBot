@@ -4,8 +4,8 @@ import shelve
 urllib3.disable_warnings()
 
 class Push:
-    Token = "a1eyp3srvytzyqr4fkypph1ivg87ux"
-    User = "uw99favdzbwrhjmefwetkuu23ucq9w"
+    Token = "X"
+    User = "X"
     CacheFile = "push.cache"
     Cache = {}
 
