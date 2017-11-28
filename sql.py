@@ -5,8 +5,8 @@ class SQL:
     CfgFile = "longbot.cfg"
 
     def connect(self):
-        self.con = MySQLdb.connect(user=self.props['db.user'], password=self.props['db.pass'],
-                    host=self.props['db.host'],database=self.props['db.db'], cursorclass=MySQLdb.cursors.DictCursor)
+        self.con = MySQLdb.connect(user=self.props['db.user'], passwd=self.props['db.pass'],
+                    host=self.props['db.host'],db=self.props['db.db'], cursorclass=MySQLdb.cursors.DictCursor)
 
     def close(self):
         if self.con:

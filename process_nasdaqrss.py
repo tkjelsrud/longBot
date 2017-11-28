@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import re
-from longbot import LongBot
+#from longbot import LongBot
 
 class Processor:
     def process(data):
@@ -12,7 +12,7 @@ class Processor:
         else:
             res['ticker'] = None
 
-        m = re.search("([0-9]+\\.[0-9]+)\n", data)
+        m = re.search(">([0-9]+\\.[0-9]+)", data)
         if m:
             res['last'] = m.group(1)
         else:
@@ -22,9 +22,3 @@ class Processor:
             res['valid'] = True
 
         return res
-
-    def calculate(bot):
-        for pos in bot['depo']:
-            # Calculate value of position vs original cost
-            print(pos['ticker'] + " " + str(pos['count']))
-        return None
