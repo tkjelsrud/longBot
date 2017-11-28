@@ -41,6 +41,8 @@ class TestLongBot(unittest.TestCase):
         res = Processor.process(data)
         self.assertEqual(res['ticker'], "qqqc")
         self.assertEqual(res['last'], "32.178")
+        self.assertEqual(res['time'], "13:00:00")
+        self.assertEqual(res['date'], "2017-11-24")
 
     def test_processNorgesBankEUR(self):
         import importlib
@@ -53,12 +55,23 @@ class TestLongBot(unittest.TestCase):
         res = Processor.process(data)
         self.assertEqual(res['ticker'], "EUR")
         self.assertEqual(res['last'], "9.6608")
+        self.assertEqual(res['time'], "15:01:00")
+        self.assertEqual(res['date'], "2017-11-24")
+
+    def test_insertTickerData(self):
+        from sql import SQL
+        s = SQL()
+        s.connect()
+        r = s.insertTickerData("TEST", 123.34, 1000, "2017-11-24 13:00:00")
+        s.close()
+
+        self.assertEqual(r, 1)
 
     def test_valueChain(self):
         from longbot import LongBot
         from push import Push
 
-        #LongBot.cacheData()
+        LongBot.cacheData()
 
         cn = LongBot.fetch("daily")
         self.assertTrue(cn > 0)
@@ -74,7 +87,7 @@ class TestLongBot(unittest.TestCase):
         else:
             print("Unable to fetch")
 
-        #LongBot.closeCache()
+        LongBot.closeCache()
 
     def test_pushover(self):
         from push import Push

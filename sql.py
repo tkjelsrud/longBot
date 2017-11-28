@@ -25,8 +25,18 @@ class SQL:
 
         return rows
 
-    def insertData(self, name, data):
-        self.sql.execute("INSERT INTO data (name, data) VALUES('%s', '%s'" % (name, data))
+    def insertTickerData(self, name, price, volume = -1, fdate = ""):
+        res = None
+        try:
+            cursor = self.con.cursor()
+            res = cursor.execute("INSERT INTO ticker (name, price, volume, fdate) VALUES('%s', %s, %s, '%s')" % (name, price, volume, fdate))
+            self.con.commit()
+        except MySQLdb.Error as e:
+            print(e)
+        finally:
+            cursor.close()
+
+        return res
 
     def fetchBots(self, hash):
         rows = None
